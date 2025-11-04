@@ -1,0 +1,12 @@
+resources
+| where type =~ 'Microsoft.Storage/storageAccounts'
+| extend minimumTlsVersion = tostring(parse_json(properties).minimumTlsVersion)
+| extend tlsConfigured = iff(isnull(minimumTlsVersion) or trim(' ', minimumTlsVersion) == '', 'UNSET', minimumTlsVersion)
+| where tlsConfigured in~ ('UNSET', 'TLS1_0', 'TLS1_1')
+| project subscriptionId, resourceGroup, name, location, minimumTlsVersion = tlsConfigured, id
+| join kind=leftouter (
+    resourcecontainers
+    | where type == 'microsoft.resources/subscriptions'
+    | project subscriptionId = subscriptionId, subscriptionName = name
+) on subscriptionId
+| order by subscriptionName asc, resourceGroup asc, name asc
