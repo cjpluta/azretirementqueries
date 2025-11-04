@@ -1,0 +1,13 @@
+resources
+| where type =~ 'microsoft.containerservice/managedclusters'
+| extend pools = properties.agentPoolProfiles
+| mv-expand pool = pools
+| where tolower(tostring(pool.osType)) == 'windows'
+| where tolower(tostring(pool.osSKU)) == 'windows2019'
+| project subscriptionId, resourceGroup, clusterName = name,
+          poolName = tostring(pool.name),
+          osType   = tostring(pool.osType),
+          osSKU    = tostring(pool.osSKU)
+| summarize poolsWithWindows2019 = count(), poolNames = make_set(poolName)
+          by subscriptionId, resourceGroup, clusterName
+| order by subscriptionId, resourceGroup, clusterName
