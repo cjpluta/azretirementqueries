@@ -1,0 +1,4 @@
+resources
+| where type =~ 'microsoft.network/virtualnetworkgateways'
+| where properties.sku.name !endswith 'AZ'
+| project name, resourceGroup, location, properties.sku.name, properties.gatewayType
