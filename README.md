@@ -12,6 +12,6 @@ These queries identify resources in your subscription(s) that have been announce
 | Application Gateway v1 | April 28, 2026 | [App Gateway v1](appgwv1.kql) | [App Gateway v1](https://azure.microsoft.com/en-us/updates?id=application-gateway-v1-will-be-retired-on-28-april-2026-transition-to-application-gateway-v2) | 
 | App Service Node 20 LTS | April 30, 2026 | [Node 20 LTS](node20lts.kql)  | [App Service Node 20 LTS](https://azure.microsoft.com/en-us/updates?id=485072) <br>*This query currently identifies Linux-based App Service Plans only.* |
 | Application Insights URL Ping Tests | September 30, 2026 | [URL Ping Test](urlpingtest.kql) | [Ping Test Migration](https://learn.microsoft.com/en-us/azure/azure-monitor/app/availability?tabs=standard#types-of-availability-tests) |
-| Azure API for FHIR | September 30, 2026 | [URL Ping Test](urlpingtest.kql) | [API Migration](https://azure.microsoft.com/en-us/updates?id=azure-api-for-fhir-retirement) <br>*This requires migrating APIs in your apps.* |
+| Azure API for FHIR | September 30, 2026 | --- | [API Migration](https://azure.microsoft.com/en-us/updates?id=azure-api-for-fhir-retirement) <br>*This requires migrating APIs in your apps.* |
 | App Service PHP 8.2 | Dec 31, 2026 | [App Service 8.2](php82.kql) | [PHP Version Support](https://www.php.net/supported-versions.php) | 
 
