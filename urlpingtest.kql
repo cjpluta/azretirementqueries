@@ -1,0 +1,5 @@
+resources
+| where type == "microsoft.insights/webtests"
+| extend testKind = tostring(properties.Kind)
+| where testKind == "ping"
+| project name, resourceGroup, subscriptionId, location
