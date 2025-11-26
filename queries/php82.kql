@@ -2,4 +2,4 @@ resources
 | where type =~ "microsoft.web/sites"
 | extend phpVersion = tostring(properties.siteConfig.linuxFxVersion)
 | where phpVersion contains "8.2"
-| project name, location, resourceGroup, phpVersion
+| project name, location, resourceGroup, phpVersion, subscriptionId

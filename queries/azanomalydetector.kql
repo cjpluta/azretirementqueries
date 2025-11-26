@@ -1,4 +1,4 @@
 Resources
 | where type =~ 'microsoft.cognitiveservices/accounts'
 | where properties.kind =~ 'AnomalyDetector'
-| project name, type, location, resourceGroup
+| project name, location, resourceGroup

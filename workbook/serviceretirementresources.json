@@ -1,0 +1,260 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# Azure App Service PHP 8.1\r\nSupport for PHP 8.1 on Azure App Services ends on Dec 31, 2025. \r\n\r\nFor more information, visit https://www.php.net/supported-versions.php",
+        "style": "info"
+      },
+      "name": "text - 1"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources \r\n| where type =~ \"microsoft.web/sites\"\r\n| extend phpVersion = tostring(properties.siteConfig.linuxFxVersion)\r\n| where phpVersion contains \"8.1\"\r\n| project name, location, resourceGroup, phpVersion, subscriptionId\r\n",
+        "size": 0,
+        "title": "Azure App Service PHP 8.1",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 0",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Azure Storage TLS 1.0 & 1.1\r\n\r\nSupport for TLS 1.0 and TLS 1.1 for Azure Storage Accounts ends on February 3, 2026. \r\n\r\nFor more information, visit https://techcommunity.microsoft.com/blog/azurepaasblog/azure-storage---tls-1-0-and-1-1-retirement/4281140. "
+      },
+      "name": "text - 2"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'Microsoft.Storage/storageAccounts'\r\n| extend minimumTlsVersion = tostring(parse_json(properties).minimumTlsVersion)\r\n| extend tlsConfigured = iff(isnull(minimumTlsVersion) or trim(' ', minimumTlsVersion) == '', 'UNSET', minimumTlsVersion)\r\n| where tlsConfigured in~ ('UNSET', 'TLS1_0', 'TLS1_1')\r\n| project id, resourceGroup, name, location, minimumTlsVersion = tlsConfigured, subscriptionId\r\n\r\n",
+        "size": 0,
+        "title": "TLS for Azure Storage Accounts",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 3",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "------\r\n\r\n# Windows Server 2019 on Azure Kubernetes Service\r\n\r\nAKS nodes running Windows Server 2019 will be retired as of March 1, 2026. \r\n\r\nFor more information, visit https://techcommunity.microsoft.com/blog/containers/announcing-the-3-year-retirement-of-windows-server-2019-on-azure-kubernetes-serv/3777341."
+      },
+      "name": "text - 4"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'microsoft.containerservice/managedclusters'\r\n| extend pools = properties.agentPoolProfiles\r\n| mv-expand pool = pools\r\n| where tolower(tostring(pool.osType)) == 'windows'\r\n| where tolower(tostring(pool.osSKU)) == 'windows2019'\r\n| project subscriptionId, resourceGroup, clusterName = name,\r\n          poolName = tostring(pool.name),\r\n          osType   = tostring(pool.osType),\r\n          osSKU    = tostring(pool.osSKU)\r\n| summarize poolsWithWindows2019 = count(), poolNames = make_set(poolName)\r\n          by subscriptionId, resourceGroup, clusterName\r\n| order by subscriptionId, resourceGroup, clusterName\r\n",
+        "size": 0,
+        "title": "Windows Server 2019 on AKS",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 5",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Application Gateway v1 \r\n\r\nApplication Gateway v1 will be retired as of April 28, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=application-gateway-v1-will-be-retired-on-28-april-2026-transition-to-application-gateway-v2. "
+      },
+      "name": "text - 6"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'microsoft.network/applicationgateways'\r\n| extend sku = tostring(properties.sku.name)\r\n| where sku in~ ('Standard','WAF')            // v1 SKUs only\r\n| project name, resourceGroup, location\r\n",
+        "size": 0,
+        "title": "Application Gateway v1",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 7",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Azure App Service running Node 20 LTS\r\n\r\nAzure App Service running Node 20 LTS will be retired as of March 30, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=485072."
+      },
+      "name": "text - 8"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'microsoft.web/sites'\r\n| extend nodeVersion = tostring(properties.siteConfig.linuxFxVersion)\r\n| where nodeVersion contains '20'\r\n| project name, resourceGroup, location, kind, nodeVersion\r\n",
+        "size": 0,
+        "title": "App Services running Node 20 LTS",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 9",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# VPN Gateway Non-AZ SKUs\r\n\r\nVPN Gateways that are not deployed as Zone Redundant will be retired as of September 30, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=vpngw1-5-non-az-skus-will-be-retired-on-30-september-2026."
+      },
+      "name": "text - 10"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'microsoft.network/virtualnetworkgateways'\r\n| where properties.sku.name !endswith 'AZ'\r\n| project name, resourceGroup, location, properties.sku.name, properties.gatewayType, subscriptionId\r\n",
+        "size": 0,
+        "title": "VPN Gateways not Zone Redundant ",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 11",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Application Insights URL Ping Test\r\n\r\nApplication Insights availability tests that use 'ping' will be retired as of September 30, 2026. \r\n\r\nFor more information, visit https://learn.microsoft.com/en-us/azure/azure-monitor/app/availability?tabs=standard#types-of-availability-tests. "
+      },
+      "name": "text - 12"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type == \"microsoft.insights/webtests\"\r\n| extend testKind = tostring(properties.Kind)\r\n| where testKind == \"ping\"\r\n| project name, resourceGroup, subscriptionId, location\r\n",
+        "size": 0,
+        "title": "App Insights URL Ping Tests",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 13",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Azure Anomaly Detector\r\n\r\nAzure Anomaly Detector will be retired as of October 1, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=ai-services-anomaly-detector-will-be-retired-on-1-october-2026. "
+      },
+      "name": "text - 14"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Resources\r\n| where type =~ 'microsoft.cognitiveservices/accounts'\r\n| where properties.kind =~ 'AnomalyDetector'\r\n| project name, location, resourceGroup\r\n",
+        "size": 0,
+        "title": "Azure Anomaly Detector",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 15",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Azure Metrics Advisor\t\r\n\r\nAzure Metrics Advisor will be retired as of October 1, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=ai-services-metrics-advisor-will-be-retired-on-1-october-2026."
+      },
+      "name": "text - 16"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where tolower(type) == \"microsoft.cognitiveservices/accounts\"\r\n| where tolower(kind) == \"metricsadvisor\"\r\n| project  name, resourceGroup, subscriptionId, location\r\n",
+        "size": 0,
+        "title": "Azure Metrics Advisor",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 17",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "-----\r\n\r\n# Azure Personalizer\t\r\n\r\nAzure Personalizer will be retired as of October 1, 2026. \r\n\r\nFor more information, visit https://azure.microsoft.com/en-us/updates?id=ai-services-personalizer-will-be-retired-on-1-october-2026."
+      },
+      "name": "text - 18"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type =~ 'microsoft.personalizer/accounts'\r\n| project name, resourceGroup, subscriptionId\r\n",
+        "size": 0,
+        "title": "Azure Personalizer",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::selected"
+        ]
+      },
+      "name": "query - 19",
+      "styleSettings": {
+        "showBorder": true
+      }
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
