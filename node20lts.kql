@@ -1,0 +1,5 @@
+resources
+| where type =~ 'microsoft.web/sites'
+| extend nodeVersion = tostring(properties.siteConfig.linuxFxVersion)
+| where nodeVersion contains '20'
+| project name, resourceGroup, location, kind, nodeVersion
