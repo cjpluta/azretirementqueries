@@ -6,7 +6,7 @@ These queries identify resources in your subscription(s) that have been announce
 | Service | Date | Query | More Info |
 | --- | --- | --- | --- |
 | App Service PHP 8.1 | Dec 31, 2025 | [App Service 8.1](php81.kql) | [PHP Version Support](https://www.php.net/supported-versions.php) | 
-| Azure Storage TLS | February 3, 2026 | [Storage TLS](storagetls.kql) | [Azure PaaS Blog](https://techcommunity.microsoft.com/blog/azurepaasblog/azure-storage---tls-1-0-and-1-1-retirement/4281140) |
+| Azure Storage TLS 1.0 & 1.1 | February 3, 2026 | [Storage TLS](storagetls.kql) | [Azure PaaS Blog](https://techcommunity.microsoft.com/blog/azurepaasblog/azure-storage---tls-1-0-and-1-1-retirement/4281140) |
 | AKS - Windows Server 2019 | March 1, 2026 | [AKS 2019 Nodes](aksws2019.kql) | [Azure AKS Blog](https://techcommunity.microsoft.com/blog/containers/announcing-the-3-year-retirement-of-windows-server-2019-on-azure-kubernetes-serv/3777341) |
 | App Service PHP 8.2 | Dec 31, 2026 | [App Service 8.2](php82.kql) | [PHP Version Support](https://www.php.net/supported-versions.php) | 
 
