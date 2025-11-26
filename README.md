@@ -15,5 +15,7 @@ These queries identify resources in your subscription(s) that have been announce
 | Application Insights URL Ping Tests | September 30, 2026 | [URL Ping Test](/queries/urlpingtest.kql) | [Ping Test Migration](https://learn.microsoft.com/en-us/azure/azure-monitor/app/availability?tabs=standard#types-of-availability-tests) |
 | Azure API for FHIR | September 30, 2026 | --- | [API Migration](https://azure.microsoft.com/en-us/updates?id=azure-api-for-fhir-retirement) <br>*This requires migrating APIs in your apps.* |
 | Azure Anomaly Detector | October 1, 2026 | [Azure Anomaly Detector](/queries/azanomalydetector.kql) | [Azure Anomaly Detector](https://azure.microsoft.com/en-us/updates?id=ai-services-anomaly-detector-will-be-retired-on-1-october-2026) |
+| Azure Metrics Advisor | October 1, 2026 | [Azure Metrics Advisor](/queries/azmetricsadvisor.kql) | [Azure Metrics Advisor](https://azure.microsoft.com/en-us/updates?id=ai-services-metrics-advisor-will-be-retired-on-1-october-2026) |
+| Azure Personalizer | October 1, 2026 | [Azure Personalizer](/queries/azpersonalizer.kql) | [Azure Personalizer](https://azure.microsoft.com/en-us/updates?id=ai-services-personalizer-will-be-retired-on-1-october-2026) |
 | App Service PHP 8.2 | Dec 31, 2026 | [App Service 8.2](/queries/php82.kql) | [PHP Version Support](https://www.php.net/supported-versions.php) | 
 

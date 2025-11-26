@@ -1,0 +1,4 @@
+resources
+| where tolower(type) == "microsoft.cognitiveservices/accounts"
+| where tolower(kind) == "metricsadvisor"
+| project  name, resourceGroup, subscriptionId, location
