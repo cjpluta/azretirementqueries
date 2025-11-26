@@ -14,5 +14,6 @@ These queries identify resources in your subscription(s) that have been announce
 | VPN Gateway Non-AZ SKUs | September 30, 2026 | [VPN Gaateway AZ SKU](vpnaz.kql) | [VPN Gateway Non-AZ SKU](https://azure.microsoft.com/en-us/updates?id=vpngw1-5-non-az-skus-will-be-retired-on-30-september-2026) | 
 | Application Insights URL Ping Tests | September 30, 2026 | [URL Ping Test](urlpingtest.kql) | [Ping Test Migration](https://learn.microsoft.com/en-us/azure/azure-monitor/app/availability?tabs=standard#types-of-availability-tests) |
 | Azure API for FHIR | September 30, 2026 | --- | [API Migration](https://azure.microsoft.com/en-us/updates?id=azure-api-for-fhir-retirement) <br>*This requires migrating APIs in your apps.* |
+| Azure Anomaly Detector | October 1, 2026 | [Azure Anomaly Detector](azanomalydetector.kql) | [Azure Anomaly Detector](https://azure.microsoft.com/en-us/updates?id=ai-services-anomaly-detector-will-be-retired-on-1-october-2026) |
 | App Service PHP 8.2 | Dec 31, 2026 | [App Service 8.2](php82.kql) | [PHP Version Support](https://www.php.net/supported-versions.php) | 
 
