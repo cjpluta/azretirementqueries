@@ -1,0 +1,5 @@
+resources
+| where type =~ 'microsoft.network/applicationgateways'
+| extend sku = tostring(properties.sku.name)
+| where sku in~ ('Standard','WAF')            // v1 SKUs only
+| project name, resourceGroup, location
