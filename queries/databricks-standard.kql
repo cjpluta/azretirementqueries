@@ -1,0 +1,11 @@
+Resources
+| where type =~ "microsoft.databricks/workspaces"
+| where tostring(sku.name) =~ "standard"
+| project
+    subscriptionId,
+    resourceGroup,
+    name,
+    location,
+    tier = tostring(sku.name),
+    id
+| order by subscriptionId asc
